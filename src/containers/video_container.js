@@ -1,5 +1,5 @@
 import React, {Component} from'react'; 
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; 
 
 import YTSearch from 'youtube-api-search'; 
 import VideoDetail from '../components/video_detail';
@@ -14,24 +14,34 @@ export class VideoContainer extends Component{
     constructor(props){
         super(props)
 
-        this.state = { videos: [] };
+        this.state = { 
+            videos: [],
+            selectedVideo: null 
+        }
 
-        YTSearch({key: API_KEY, term: 'running'},(data) => { 
-            this.setState({ videos: data }); 
+        YTSearch({key: API_KEY, term: 'running'},(videos) => { 
+            this.setState({ 
+                videos: videos,
+                selectedVideo: videos[0]
+             }); 
         });  
     } 
 
     static propTypes = {
         searchTerm: PropTypes.string
-    } 
+    }
 
-    render(){ 
-    return (
-        <div>
+    
+    render(){  
+
+    return ( 
+        <div> 
             <SearchBar />
-            <VideoDetail video={this.state.videos} />
-            <VideoList videos={this.state.videos} />
-        </div>
+            <VideoDetail video={this.state.selectedVideo} />
+            <VideoList 
+            onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+            videos={this.state.videos} />
+        </div> 
     );
     } 
 }; 

@@ -1,14 +1,12 @@
 import React from 'react'
 //import get from 'lodash/get';
 
-const VideoListItem = ({video}) => {
-    
-    const imageUrl = video.snippet.thumbnails.default.url;
+const VideoListItem = ({video, onVideoSelect}) => { 
 
-  // const title = get(video, 'snippet.title', '');
+    const imageUrl = video.snippet.thumbnails.default.url; 
     
      return (
-     <li className = "list-group-item">
+     <li onClick={() => onVideoSelect(video)} className = "list-group-item">
         <div className="video-list-media">
             <img className="media-object" src={imageUrl} />
         </div>
