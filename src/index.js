@@ -14,10 +14,10 @@ export class  App extends Component {
 
     render(){ 
         
-        return  <div>
-            <p>SearchBar</p>
-            <SearchBar />
-            </div>; 
+        return(  
+        <div>
+            Basic React Framework
+        </div>); 
     };
     
 }
