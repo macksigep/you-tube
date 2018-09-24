@@ -1,6 +1,8 @@
 import React, {Component} from'react'; 
 import PropTypes from 'prop-types'; 
 
+import _ from 'lodash';
+
 import YTSearch from 'youtube-api-search'; 
 import VideoDetail from '../components/video_detail';
 import VideoList from '../components/video_list'; 
@@ -19,24 +21,30 @@ export class VideoContainer extends Component{
             selectedVideo: null 
         }
 
-        YTSearch({key: API_KEY, term: 'running'},(videos) => { 
-            this.setState({ 
-                videos: videos,
-                selectedVideo: videos[0]
-             }); 
-        });  
+        this.videoSearch('running');
+         
     } 
 
     static propTypes = {
         searchTerm: PropTypes.string
     }
 
+    videoSearch = term =>{
+        YTSearch({key: API_KEY, term: term},(videos) => { 
+            this.setState({ 
+                videos: videos,
+                selectedVideo: videos[0]
+             }); 
+        });
+    }
+
     
-    render(){  
+    render(){
+        const throttleVideoSearch = debounce((term) => {this.videoSearch(term), 300});
 
     return ( 
         <div> 
-            <SearchBar />
+            <SearchBar onSearchTermChange={throttleVideoSearch}/>
             <VideoDetail video={this.state.selectedVideo} />
             <VideoList 
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
