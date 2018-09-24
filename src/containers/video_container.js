@@ -1,7 +1,7 @@
 import React, {Component} from'react'; 
 import PropTypes from 'prop-types'; 
 
-import debounce from 'lodash/debounce';
+import _ from 'lodash';
 
 import YTSearch from 'youtube-api-search'; 
 import VideoDetail from '../components/video_detail';
