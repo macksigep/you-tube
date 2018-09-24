@@ -40,7 +40,7 @@ export class VideoContainer extends Component{
 
     
     render(){
-        const throttleVideoSearch = debounce((term) => {this.videoSearch(term), 300});
+        const throttleVideoSearch = _.debounce((term) => {this.videoSearch(term), 300});
 
     return ( 
         <div> 
