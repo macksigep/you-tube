@@ -19,16 +19,21 @@ export class VideoContainer extends Component{
             selectedVideo: null 
         }
 
-        YTSearch({key: API_KEY, term: 'running'},(videos) => { 
-            this.setState({ 
-                videos: videos,
-                selectedVideo: videos[0]
-             }); 
-        });  
+        this.videoSearch('running');
+         
     } 
 
     static propTypes = {
         searchTerm: PropTypes.string
+    }
+
+    videoSearch = term =>{
+        YTSearch({key: API_KEY, term: term},(videos) => { 
+            this.setState({ 
+                videos: videos,
+                selectedVideo: videos[0]
+             }); 
+        });
     }
 
     
@@ -36,7 +41,7 @@ export class VideoContainer extends Component{
 
     return ( 
         <div> 
-            <SearchBar />
+            <SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
             <VideoDetail video={this.state.selectedVideo} />
             <VideoList 
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
