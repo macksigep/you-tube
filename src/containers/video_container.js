@@ -1,6 +1,8 @@
 import React, {Component} from'react'; 
 import PropTypes from 'prop-types'; 
 
+import debounce from 'lodash/debounce';
+
 import YTSearch from 'youtube-api-search'; 
 import VideoDetail from '../components/video_detail';
 import VideoList from '../components/video_list'; 
@@ -37,11 +39,12 @@ export class VideoContainer extends Component{
     }
 
     
-    render(){  
+    render(){
+        const throttleVideoSearch = debounce((term) => {this.videoSearch(term), 300});
 
     return ( 
         <div> 
-            <SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
+            <SearchBar onSearchTermChange={throttleVideoSearch}/>
             <VideoDetail video={this.state.selectedVideo} />
             <VideoList 
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
