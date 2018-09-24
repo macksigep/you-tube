@@ -40,14 +40,14 @@ export class VideoContainer extends Component{
 
     
     render(){
-        const throttleVideoSearch = debounce((term) => {this.videoSearch(term), 300});
+        const throttleVideoSearch = _.debounce((term) => {this.videoSearch(term), 300});
 
     return ( 
         <div> 
             <SearchBar onSearchTermChange={throttleVideoSearch}/>
             <VideoDetail video={this.state.selectedVideo} />
             <VideoList 
-            onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+            onVideoSelect={selectedVideo => this.setState({selectedVideo})}  
             videos={this.state.videos} />
         </div> 
     );
