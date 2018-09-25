@@ -11,6 +11,8 @@ import SearchBar from '../components/search_bar';
 
 const API_KEY = 'AIzaSyCn_5wTde6aR0z7TTyvxag319_OQFwTQBY'; 
 
+import videos from '../redux/actions/you_tube_video_api_action';
+
 export class VideoContainer extends Component{
 
     constructor(props){
@@ -22,6 +24,7 @@ export class VideoContainer extends Component{
         }
 
         this.videoSearch('running');
+        videos();
          
     } 
 
