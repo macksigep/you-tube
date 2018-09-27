@@ -1,5 +1,6 @@
 import React, {Component} from'react'; 
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux' ;
 
 import _ from 'lodash';
 
@@ -19,12 +20,12 @@ export class VideoContainer extends Component{
         super(props)
 
         this.state = { 
-            videos: [],
+            videos: this.props.allVideos,
             selectedVideo: null 
         }
 
-        this.videoSearch('running');
-        videos();
+        this.videoSearch('cooking');
+       // videos();
          
     } 
 
@@ -32,7 +33,7 @@ export class VideoContainer extends Component{
         searchTerm: PropTypes.string
     }
 
-    videoSearch = term =>{
+    videoSearch = term => {
         YTSearch({key: API_KEY, term: term},(videos) => { 
             this.setState({ 
                 videos: videos,
@@ -57,4 +58,10 @@ export class VideoContainer extends Component{
     } 
 }; 
 
-export default VideoContainer; 
+const mapStateToProps = state => {
+    return {
+        allVideos: state.videos
+    }
+}
+
+export default connect(mapStateToProps)(VideoContainer)
